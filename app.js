@@ -1,5 +1,6 @@
 const express = require('express')
 const session = require('express-session')
+const usePassport = require('passport')
 const exphbs = require('express-handlebars')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -15,15 +16,19 @@ app.set('view engine', "hbs")
 
 //setting session
 app.use(session({
-  secret: 'keyboard cat',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   // cookie: { secure: true }
 }))
 
+usePassport(app)
 
-
-
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.isAuthenticated
+  res.locals.user = req.user
+  next()
+})
 
 
 
