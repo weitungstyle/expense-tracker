@@ -1,6 +1,6 @@
 const express = require('express')
 const session = require('express-session')
-const usePassport = require('passport')
+const usePassport = require('./config/passport')
 const exphbs = require('express-handlebars')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const app = express()
 const port = process.env.PORT
-
+require('./config/mongoose')
 app.use('hbs', exphbs.engine({ defaultLayout: 'main', extname: 'hbs' }))
 app.set('view engine', "hbs")
 
