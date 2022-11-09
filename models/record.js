@@ -1,6 +1,4 @@
 const mongoose = require('mongoose')
-const user = require('./user')
-const category = require('./category')
 const Schema = mongoose.Schema
 
 const recordSchema = new Schema({
@@ -18,13 +16,13 @@ const recordSchema = new Schema({
   },
   userId: {
     type: Schema.Types.ObjectId,
-    ref: 'user',
+    ref: 'User',
     index: true,
     required: true
   },
   categoryId: {
     type: Schema.Types.ObjectId,
-    ref: 'category',
+    ref: 'Category',
     index: true,
     required: true
   }

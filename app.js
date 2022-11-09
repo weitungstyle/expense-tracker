@@ -12,7 +12,7 @@ require('./config/mongoose')
 app.use('hbs', exphbs.engine({ defaultLayout: 'main', extname: 'hbs' }))
 app.set('view engine', "hbs")
 
-
+const recordList = require('./models/seeds/record.json')
 
 //setting session
 app.use(session({
