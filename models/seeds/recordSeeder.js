@@ -32,12 +32,14 @@ db.once('open', async () => {
         const { name, date, amount } = record
         const user = users.find(user => record.user === user.name)._id
         const category = categories.find(category => record.category === category.name)._id
+        const icon = categories.find(category => record.category === category.name).icon
         return Record.create({
           name,
           date,
           amount,
           userId: user,
-          categoryId: category
+          categoryId: category,
+          icon
         })
           .catch(err => console.log(err))
       }))

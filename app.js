@@ -1,18 +1,22 @@
 const express = require('express')
-const session = require('express-session')
-const usePassport = require('./config/passport')
 const exphbs = require('express-handlebars')
+const session = require('express-session')
+const flash = require('connect-flash')
+const methodOverride = require('method-override')
+const routes = require('./routes/index')
+const usePassport = require('./config/passport')
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
 const app = express()
 const port = process.env.PORT
-require('./config/mongoose')
-app.use('hbs', exphbs.engine({ defaultLayout: 'main', extname: 'hbs' }))
-app.set('view engine', "hbs")
 
-const recordList = require('./models/seeds/record.json')
+require('./config/mongoose')
+app.engine('hbs', exphbs.engine({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
+app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true })) // 取得req.body內容
 
 //setting session
 app.use(session({
@@ -23,18 +27,18 @@ app.use(session({
 }))
 
 usePassport(app)
-
+app.use(flash())
 app.use((req, res, next) => {
-  res.locals.isAuthenticated = req.isAuthenticated
+  res.locals.isAuthenticated = req.isAuthenticated()
   res.locals.user = req.user
+  res.locals.warning_msg = req.flash('warning_msg')
+  res.locals.success_msg = req.flash('success_msg')
   next()
 })
 
+app.use(methodOverride('_method'))
 
-
-app.get('/', (req, res) => {
-  res.render('index')
-})
+app.use(routes)
 
 app.listen(port, (req, res) => {
   console.log(`The website is running on http://localhost:${port}`)

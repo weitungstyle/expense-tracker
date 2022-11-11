@@ -6,11 +6,11 @@ const db = require('../../config/mongoose')
 const Category = require('../category')
 
 const CATEGORY = {
-  家居物業: "https://fontawesome.com/icons/home?style=solid",
-  交通出行: "https://fontawesome.com/icons/shuttle-van?style=solid",
-  休閒娛樂: "https://fontawesome.com/icons/grin-beam?style=solid",
-  餐飲食品: "https://fontawesome.com/icons/utensils?style=solid",
-  其他: "https://fontawesome.com/icons/pen?style=solid"
+  家居物業: '<i class="fa-solid fa-house"></i>',
+  交通出行: '<i class="fa-solid fa-van-shuttle"></i>',
+  休閒娛樂: '<i class="fa-solid fa-face-grin-beam"></i>',
+  餐飲食品: '<i class="fa-solid fa-utensils"></i>',
+  其他: '<i class="fa-solid fa-pen"></i>'
 }
 
 
@@ -20,7 +20,7 @@ db.once('open', () => {
   const cList = lodash.map(CATEGORY, (value, key) => {
     return {
       name: key,
-      image: value
+      icon: value
     }
   })
   //create category items
@@ -28,7 +28,7 @@ db.once('open', () => {
     cList,
     (i) => Category.create({
       name: i.name,
-      image: i.image
+      icon: i.icon
     })
   ))
     .then(() => {

@@ -1,4 +1,8 @@
-<form action="/records" method="POST" style="display: inline; width: 50vw">
+<form
+  action="/records/{{record._id}}?_method=PUT"
+  method="POST"
+  style="display: inline; width: 50vw"
+>
   <div class="row m-5">
     <div class="col-3 align-items-center">
       <p class="required-column mb-5"><span
@@ -31,7 +35,7 @@
     </div>
 
     <div class="col-9 text-center">
-      <h4 class="mb-5">請輸入你的支出</h4>
+      <h4 class="mb-5">修改你的支出</h4>
 
       <input
         type="text"
@@ -39,6 +43,7 @@
         id="name"
         placeholder="輸入名稱"
         name="name"
+        value="{{record.name}}"
         required
       />
 
@@ -47,32 +52,31 @@
         class="form-control mb-5"
         id="date"
         name="date"
+        value="{{record.date}}"
         required
       />
 
       <select
-        type="text"
         class="form-control mb-5"
         id="category"
         name="category"
         required>
         {{#each categories}}
-            <option value="{{ this.name }}" {{#if this.selected}}selected{{/if}}>{{ this.name }}</option>
+        <option value="{{ this.name }}" {{#if this.selected}}selected{{/if}}>{{ this.name }}</option>
         {{/each}}
         </select>
-
-
 
       <input
         type="text"
         class="form-control mb-5"
         id="amount"
-        placeholder="輸入英文名稱"
+        placeholder="輸入金額"
         name="amount"
+        value="{{record.amount}}"
         required
       />
 
-      <button class="btn btn-success w-100" type="submit">新增支出</button>
+      <button class="btn btn-success w-100" type="submit">確定修改</button>
     </div>
   </div>
 </form>

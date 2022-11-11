@@ -1,22 +1,70 @@
-<a href="/todos/new" class="btn btn-primary mb-3">Create</a>
-<ul class="list-group">
-  {{#each todos}}
-  <li class="list-group-item">
-    <div class="row">
-      <div class="col-auto me-auto">
-        <input style="vertical-align: middle;" type="checkbox" name="isDone" {{#if this.isDone }} checked {{/if}}
-          disabled>
-        <h4 style="display: inline; vertical-align: middle;">
-          {{ this.name }}
-        </h4>
+<form action="/" method="get">
+  <div class="col-7 pl-1 mt-5">
+    <div class="action-outer">
+      <select
+        class="form-select"
+        name="selectedCategory"
+        id="selectedCategory"
+        onchange="submit()"
+      >
+        <option value="">類別</option>
+        {{#each categories}}
+          <option value={{this.name}}>{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+  </div>
+</form>
+<div class="row my-5">
+  <div class="col-2">
+    <h4>總金額：</h4>
+  </div>
+  <div class="col-5">
+    <h1 class="display-1 text-warning text-end">{{totalAmount}}</h1>
+  </div>
+</div>
+
+<ul class="list-group mb-3">
+  {{#each records}}
+    <li class="row mb-3">
+      <div class="col-7 row list-group-item">
+        <div class="col-auto me-auto">
+
+          <div class="row">
+            <div class="col-1">
+              {{{this.icon}}}
+            </div>
+            <div class="col-8">
+              <h5>{{this.name}}</h5>
+              <p class="m-0">{{this.date}}</p>
+            </div>
+            <h4 class="col-3">
+              {{this.amount}}
+            </h4>
+          </div>
+        </div>
       </div>
-      <div class="col-auto">
-        <a class="btn btn-success" href="./todos/{{ this._id }}/edit">修改</a>
-        <form action="./todos/{{ this._id }}?_method=DELETE" method="POST" style="display: inline;">
-          <button class="btn btn-danger" type="submit">刪除</button>
+      <div class="col-5 row justify-content-end my-3">
+        <a
+          class="btn btn-outline-success col-5"
+          href="./records/{{this._id}}/edit"
+        >修改</a>
+        <form
+          action="./records/{{this._id}}?_method=DELETE"
+          method="POST"
+          class="col-5"
+        >
+          <button
+            class="btn btn-outline-danger w-100 h-100"
+            type="submit"
+          >刪除</button>
         </form>
       </div>
-    </div>
-  </li>
+    </li>
   {{/each}}
 </ul>
+<div class="row">
+  <div class="col-5 offset-1">
+    <a href="/records/new" class="btn btn-warning btn-lg w-100">新增支出</a>
+  </div>
+</div>

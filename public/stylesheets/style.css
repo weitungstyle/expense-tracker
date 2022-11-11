@@ -1,0 +1,12 @@
+.list-group li .list-group-item{
+  border: none;
+  border-radius: 6px;
+}
+
+.list-group li:nth-child(odd) .list-group-item{
+  background-color:rgb(181, 181, 181);
+}
+
+.list-group li:nth-child(even) .list-group-item{
+  background-color:transparent
+}
